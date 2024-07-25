@@ -104,18 +104,7 @@ btnZ.on('click', () => {
     gsap.to(cubeMesh.rotation, { duration: 1, z: cubeMesh.rotation.z + Math.PI * 2, ease: 'power2.inOut' });
 });
 
-// Helper function to check if an event target intersects with the cubeMesh
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-
-function isEventTargetCubeMesh(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObject(cubeMesh);
-    return intersects.length > 0;
-}
-
+// debug UI visibility
 // for desktop users
 document.addEventListener('keydown', (e) => {
     if (e.key === 'h') {
