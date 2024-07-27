@@ -183,6 +183,32 @@ material.envMap = environmentMapTexture;
 // 11. shader and raw shader material
 // later
 
+// 12. line basic material
+const lineBasicMaterial = new THREE.LineBasicMaterial();
+lineBasicMaterial.color = new THREE.Color('crimson');
+lineBasicMaterial.linewidth = 10;
+lineBasicMaterial.linecap = 'round';
+lineBasicMaterial.linejoin = 'round';
+lineBasicMaterial.dashSize = 0.1;
+lineBasicMaterial.gapSize = 0.1;
+lineBasicMaterial.transparent = true;
+lineBasicMaterial.opacity = 0.5;
+
+// 13. line dashed material
+const lineDashedMaterial = new THREE.LineDashedMaterial();
+lineDashedMaterial.color = new THREE.Color('crimson');
+lineDashedMaterial.linewidth = 10;
+lineDashedMaterial.scale = 2;
+lineDashedMaterial.dashSize = 0.1;
+lineDashedMaterial.gapSize = 0.1;
+lineDashedMaterial.transparent = true;
+lineDashedMaterial.opacity = 0.5;
+
+// sprite material
+const spriteMaterial = new THREE.SpriteMaterial();
+spriteMaterial.map = doorColorTexture;
+spriteMaterial.color = new THREE.Color('green');
+
 // torus
 const torus = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.2, 64, 128), material);
 scene.add(torus);
@@ -203,6 +229,21 @@ plane.position.x = 4;
 console.log(plane.geometry.attributes);
 // does it work without this? - yes, i dunno
 plane.geometry.setAttribute('uv2', new THREE.Float32BufferAttribute(plane.geometry.attributes.uv.array, 2));
+
+// line
+const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-10, 0, 0), new THREE.Vector3(10, 0, 0)]), lineBasicMaterial);
+scene.add(line);
+
+// line dashed
+const lineDashed = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-10, 1, 0), new THREE.Vector3(10, 1, 0)]), lineDashedMaterial);
+lineDashed.computeLineDistances();
+scene.add(lineDashed);
+
+// sprite
+const sprite = new THREE.Sprite(spriteMaterial);
+scene.add(sprite);
+sprite.position.z = -50;
+sprite.scale.set(100, 100, 100);
 
 // tweaking materials
 const pane = new Pane();
