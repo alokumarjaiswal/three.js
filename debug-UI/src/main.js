@@ -67,6 +67,7 @@ colorFolder.addBinding(params, 'color', { view: 'color', color: { alpha: true },
     material.color.set(value.value);
 });
 colorFolder.addBinding(material, 'opacity', { min: 0, max: 1, step: 0.01, label: 'Opacity' });
+colorFolder.addBinding(material, 'transparent', { label: 'Transparent' });
 
 cubeFolder.addBlade( { view: 'separator' } )
 
