@@ -9,7 +9,7 @@ const scene = new THREE.Scene();
 
 // Camera
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.01, 100);
-camera.position.set(0, 0, 2);
+camera.position.set(0, 0, 5);
 scene.add(camera);
 
 // Renderer
@@ -136,7 +136,7 @@ console.timeEnd('donuts');
 
 // animate camera zoom-in
 gsap.to(camera.position, { duration: 3,
-    z: 0.5,
+    z: 2,
     ease: 'power3.inOut',
     onUpdate: () => camera.updateProjectionMatrix()
 });
