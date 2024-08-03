@@ -32,28 +32,10 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.25;
 controls.screenSpacePanning = false;
-
-// axes helper
-// const axesHelper = new THREE.AxesHelper(2);
-// scene.add(axesHelper);
-
-// Loading Manager
-const loadingManager = new THREE.LoadingManager();
-loadingManager.onStart = ( url, itemsLoaded, itemsTotal ) => {
-    console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-};
-loadingManager.onLoad = () => {
-    console.log( 'Loading complete!' );
-}
-loadingManager.onProgress = ( url, itemsLoaded, itemsTotal ) => {
-    console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-}
-loadingManager.onError = ( url ) => {
-    console.log( 'There was an error loading ' + url );
-}
+controls.maxDistance = 9;
 
 // Texture Loader
-const textureLoader = new THREE.TextureLoader(loadingManager);
+const textureLoader = new THREE.TextureLoader();
 
 // Load Texture
 const matcapTexture = textureLoader.load('textures/matcaps/3.png'); 
@@ -63,7 +45,7 @@ const material = new THREE.MeshMatcapMaterial();
 material.matcap = matcapTexture;
 
 // Font Loader
-const fontLoader = new FontLoader(loadingManager);
+const fontLoader = new FontLoader();
 
 // Load Font
 fontLoader.load('fonts/optimer_regular.typeface.json',
@@ -81,42 +63,18 @@ fontLoader.load('fonts/optimer_regular.typeface.json',
             bevelSegments: 5
         });
 
-        // --Center text--
-        // - manual centering
-        // textGeometry.computeBoundingBox();
-        // textGeometry.translate(
-        //     -(textGeometry.boundingBox.max.x - 0.02) / 2,
-        //     -(textGeometry.boundingBox.max.y - 0.02) / 2,
-        //     -(textGeometry.boundingBox.max.z - 0.03) / 2
-        // );
-        // textGeometry.computeBoundingBox();
-        // console.log(textGeometry.boundingBox);
-        // - auto centering
         textGeometry.center();
 
         material.wireframe = false;
-        // material.matcap = matcapTexture;
 
         const text = new THREE.Mesh(textGeometry, material);
         scene.add(text);
-    },
-    // onProgress callback function
-    ( xhr ) => {
-        console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-    },
-    // onError callback function
-    ( err ) => {
-        console.log( 'An error happened' );
     }
 );
 
 // donuts & laddoos
 const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45);
 const laddooGeometry = new THREE.SphereGeometry(0.3, 32, 32);
-
-// material.matcap = matcapTexture;
-
-console.time('donuts');
 
 for (let i = 0; i < 121; i++) {
 
@@ -140,8 +98,6 @@ for (let i = 0; i < 121; i++) {
     laddo.scale.set(scale, scale, scale);
     scene.add(laddo);
 }
-
-console.timeEnd('donuts');
 
 // animate camera zoom-in
 gsap.to(camera.position, { duration: 3,
