@@ -65,8 +65,6 @@ fontLoader.load('fonts/optimer_regular.typeface.json',
 
         textGeometry.center();
 
-        material.wireframe = false;
-
         const text = new THREE.Mesh(textGeometry, material);
         scene.add(text);
     }
@@ -158,3 +156,20 @@ function animate() {
   renderer.render(scene, camera);
 }
 animate();
+
+// username animation
+document.addEventListener('DOMContentLoaded', () => {
+    const colors = ['#ff0000', '#ff7f00', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#8b00ff']; // Pride colors
+    const spans = document.querySelectorAll('.username span');
+
+    spans.forEach((span, index) => {
+        gsap.to(span, {
+            duration: 1,
+            color: colors[index % colors.length],
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut',
+            delay: index * 0.1 // Stagger the animation for a waving effect
+        });
+    });
+});
