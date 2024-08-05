@@ -52,3 +52,22 @@ renderer.domElement {
         right: 0px; /* Adjust position */
     }
 }
+
+@media (max-height: 800px) {
+    .username {
+        font-size: 16px; /* Smaller font size for shorter heights */
+    }
+}
+
+@media (max-height: 600px) {
+    .username {
+        font-size: 14px; /* Even smaller font size for shorter heights */
+    }
+}
+
+@media (max-height: 400px) {
+    .username {
+        font-size: 12px; /* Minimum font size */
+        white-space: nowrap; /* Prevent wrapping */
+    }
+}
